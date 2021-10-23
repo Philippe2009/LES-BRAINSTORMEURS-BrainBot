@@ -39,17 +39,10 @@ def gyroTurn(motors, angle):
     while direction*hub.motion_sensor.get_yaw_angle() <= direction*angle:
         print(str(hub.motion_sensor.get_yaw_angle()))
         pass
-    if angle > 0:
-        # le robot tourne à droite
-    
-        # le robot tourne à gauche
-    else:
-        while hub.motion_sensor.get_yaw_angle() >= angle:
-            print(str(hub.motion_sensor.get_yaw_angle()))
-            pass
     motors.stop()
     print(str(hub.motion_sensor.get_yaw_angle()))
-        
-    
-        
-gyroTurn(pair,90)
+
+#carré
+for i in range(3):
+    pair.move_tank(10, 'cm', 10, 10)
+    gyroTurn(pair,-90)
