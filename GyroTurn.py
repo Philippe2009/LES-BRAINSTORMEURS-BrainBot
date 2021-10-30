@@ -1,14 +1,13 @@
-from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
-from mindstorms.control import wait_for_seconds, wait_until, Timer
-from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
+from spike import PrimeHub, LightMatrix, Button, StatusLight, ForceSensor, MotionSensor, Speaker, ColorSensor, App, DistanceSensor, Motor, MotorPair
+from spike.control import wait_for_seconds, wait_until, Timer
 import math
 
 
 # Create your objects here.
-hub = MSHub()
+hub = PrimeHub()
 
 #variable des moteurs
-pair = MotorPair('E','F')
+pair = MotorPair('C','B')
 #tourner à 90 degrés
 #reset le yaw du gyro
 hub.motion_sensor.reset_yaw_angle()
@@ -44,10 +43,36 @@ def gyroTurn(motors, angle,speed = 8):
     print(str(hub.motion_sensor.get_yaw_angle()))
 
 #carré
-def square(speed):
+def square(speed,gyroSpeed = 10):
     pair.set_stop_action('coast')
     for i in range(4):
         pair.move_tank(10, 'cm', speed, speed)
-        gyroTurn(pair,-90,10)
+        gyroTurn(pair,-90,gyroSpeed)
 
-#square(10)
+# fonction qui retourne un tour de roue
+# cette fonction prnd en paramètre le type de roue("little" pour petit et "big" pour gros)
+def setWheelType(whell = "big"):
+    # vérifie si le paramètre est égal à "small"
+    if whell == "small":
+        #le diamètre des roues
+        rotation = 5.6 * math.pi
+        pair.set_motor_rotation(rotation, 'cm')
+    else:
+        # ici, dans tous les cas, le paramètre estv égal à small
+        rotation = 8.8 * math.pi
+        pair.set_motor_rotation(rotation, 'cm')
+
+#fonction pour afficher simplement du texte sur le HUB
+def hubPrint(hubVar,text = "LES BRAINSTORMEURS C'EST LES MEILLEURS !!!"):
+    hubVar.light_matrix.write(str(text))
+
+def moveForward():
+    pass
+
+
+
+#pas besoin de renseigner de paramètre car la valeur par défaut est "big"
+setWheelType()
+for i in range(10):
+    square(50,50)
+hubPrint(hub)
