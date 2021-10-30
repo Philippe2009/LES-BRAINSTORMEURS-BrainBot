@@ -1,13 +1,16 @@
-from spike import PrimeHub, LightMatrix, Button, StatusLight, ForceSensor, MotionSensor, Speaker, ColorSensor, App, DistanceSensor, Motor, MotorPair
-from spike.control import wait_for_seconds, wait_until, Timer
+from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
+from mindstorms.control import wait_for_seconds, wait_until, Timer
+from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math
 
 
 # Create your objects here.
-hub = PrimeHub()
+hub = MSHub()
 
 #variable des moteurs
-pair = MotorPair('C','B')
+pair = MotorPair('E','F')
+motorL = Motor('E')
+
 #tourner à 90 degrés
 #reset le yaw du gyro
 hub.motion_sensor.reset_yaw_angle()
@@ -51,7 +54,7 @@ def square(speed,gyroSpeed = 10):
 
 # fonction qui retourne un tour de roue
 # cette fonction prnd en paramètre le type de roue("little" pour petit et "big" pour gros)
-def setWheelType(whell = "big"):
+def setWheelType(whell = "small"):
     # vérifie si le paramètre est égal à "small"
     if whell == "small":
         #le diamètre des roues
@@ -66,13 +69,40 @@ def setWheelType(whell = "big"):
 def hubPrint(hubVar,text = "LES BRAINSTORMEURS C'EST LES MEILLEURS !!!"):
     hubVar.light_matrix.write(str(text))
 
-def moveForward():
-    pass
+def moveForward(degrees,speed = 100):
+    #calcul du coefficient de proportionnalité
+    # on finit à accélérer à 2 cm
+    # intialise la rotation du moteur
+    motorL.set_degrees_counted(0) 
+    LIMIT = 300
+    while(True):
+        currentSpeed = 0
+        current = math.fabs(motorL.get_degrees_counted())
+        if current <= LIMIT:
+            #on est entre les deux
+            currentSpeed =  current*90/LIMIT+10
+        elif current >= degrees-LIMIT:
+            currentSpeed =100-((current-(degrees-LIMIT))*90/LIMIT+10)
+        else:
+            currentSpeed = 100
+        if current >= degrees:
+            break
+        pair.start_tank(int(currentSpeed),int(currentSpeed))
+        print("current",current,"speed", currentSpeed)  
+    pair.stop()
 
+    
+
+    
+    
+    
 
 
 #pas besoin de renseigner de paramètre car la valeur par défaut est "big"
+"""
 setWheelType()
 for i in range(10):
     square(50,50)
 hubPrint(hub)
+"""
+moveForward(1000)
