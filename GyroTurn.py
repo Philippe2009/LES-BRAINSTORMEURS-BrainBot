@@ -8,7 +8,7 @@ import math
 hub = MSHub()
 
 #variable des moteurs
-pair = MotorPair('E','F')
+Mpair = MotorPair('E','F')
 motorL = Motor('E')
 
 #tourner à 90 degrés
@@ -49,7 +49,7 @@ def gyroTurn(motors, angle,speed = 8):
 def square(speed,gyroSpeed = 10):
     pair.set_stop_action('coast')
     for i in range(4):
-        pair.move_tank(10, 'cm', speed, speed)
+        moveForwardCm(Mpair,10,30)
         gyroTurn(pair,-90,gyroSpeed)
 
 # fonction qui retourne un tour de roue
@@ -69,18 +69,18 @@ def setWheelType(whell = "small"):
 def hubPrint(hubVar,text = "LES BRAINSTORMEURS C'EST LES MEILLEURS !!!"):
     hubVar.light_matrix.write(str(text))
 
-def moveForward(degrees,speed = 100):
+def moveForward(pair,degrees,speed = 100):
     #calcul du coefficient de proportionnalité
     # on finit à accélérer à 2 cm
     # intialise la rotation du moteur
-    motorL.set_degrees_counted(0) 
-    LIMIT = 300
+    motorL.set_degrees_counted(0)
+    LIMIT = degrees/2
     while(True):
         currentSpeed = 0
         current = math.fabs(motorL.get_degrees_counted())
         if current <= LIMIT:
             #on est entre les deux
-            currentSpeed =  current*90/LIMIT+10
+            currentSpeed =current*90/LIMIT+10
         elif current >= degrees-LIMIT:
             currentSpeed =100-((current-(degrees-LIMIT))*90/LIMIT+10)
         else:
@@ -88,14 +88,42 @@ def moveForward(degrees,speed = 100):
         if current >= degrees:
             break
         pair.start_tank(int(currentSpeed),int(currentSpeed))
-        print("current",current,"speed", currentSpeed)  
+        print("current",current,"speed", currentSpeed)
+
     pair.stop()
 
-    
+def moveForwardCm(pair,distanceCm,speed = 100):
+    #calcul du coefficient de proportionnalité
+    # on finit à accélérer à 2 cm
+    # intialise la rotation du moteur
+    Wheelperimeter = 5.6*math.pi
+    print("wheel perimeter = ",Wheelperimeter)
+    coefCmDegrees = 360/Wheelperimeter
+    print("coefCmDegrees",coefCmDegrees)
+    degrees = distanceCm*coefCmDegrees
+    print("degrees",degrees)
+    motorL.set_degrees_counted(0)
+    LIMIT = degrees/2
+    while(True):
+        currentSpeed = 0
+        current = math.fabs(motorL.get_degrees_counted())
+        if current <= LIMIT:
+            #on est entre les deux
+            currentSpeed =current*(speed-10)/LIMIT+10
+        elif current >= degrees-LIMIT:
+            currentSpeed =speed-((current-(degrees-LIMIT))*(speed-10)/LIMIT+10)
+        else:
+            currentSpeed = speed
+        if current >= degrees:
+            break
+        pair.start_tank(int(currentSpeed),int(currentSpeed))
+        print("current",current,"speed", currentSpeed)
+    pair.stop()
 
-    
-    
-    
+
+
+
+
 
 
 #pas besoin de renseigner de paramètre car la valeur par défaut est "big"
@@ -105,4 +133,4 @@ for i in range(10):
     square(50,50)
 hubPrint(hub)
 """
-moveForward(1000)
+moveForwardCm(Mpair, 10,30)
