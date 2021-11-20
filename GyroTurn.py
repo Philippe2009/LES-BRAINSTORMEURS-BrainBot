@@ -114,15 +114,32 @@ def moveForwardCm(pair,distanceCm,speed = 100):
             currentSpeed =speed-((current-(degrees-LIMIT))*(speed-10)/LIMIT+10)
         else:
             currentSpeed = speed
-        if current >= degrees:
+        if current >= degrees-4:
             break
         pair.start_tank(int(currentSpeed),int(currentSpeed))
         print("current",current,"speed", currentSpeed)
     pair.stop()
 
+# la fonction du gyro turn pour un mot
+def gyroTurnOneMotor(motors, angle,speed = 8):
+    hub.motion_sensor.reset_yaw_angle()
+    #vérifie si la valeur est positiver est négative
+    #divise angle par la valeur absolue de l'angle (si angle = -1 alors valeur absolue = 1 et à l'inverse si angle = 1 alors valeur absolue = -1)
+    #si l'angle est négatif, l'angle = 1 et si ml'angle est positif, angle = -1
+    direction = angle / math.fabs(angle)
+    print("direction:",direction)
+    motors.start_tank(0,-speed*int(direction))
+    print("direction:",direction)
+    # example: -1*2 <= -1*-90
+    # donc, si -2 <= 90
+    while direction*hub.motion_sensor.get_yaw_angle() <= direction*angle:
+        print(str(hub.motion_sensor.get_yaw_angle()))
+        pass
+    motors.stop()
+    print(str(hub.motion_sensor.get_yaw_angle()))
 
-
-
+def autoCleaning():
+    moveForwardCm(Mpair, 100000000000000000000)
 
 
 
@@ -133,4 +150,14 @@ for i in range(10):
     square(50,50)
 hubPrint(hub)
 """
-moveForwardCm(Mpair, 10,30)
+"""
+moveForwardCm(Mpair,48)
+hub.motion_sensor.reset_yaw_angle()
+gyroTurnOneMotor(Mpair,88,25)
+moveForwardCm(Mpair,45)*
+"""
+Mpair.move(60,'cm',0,100)
+Mpair.move(60,'cm',0,-100)
+
+
+    
