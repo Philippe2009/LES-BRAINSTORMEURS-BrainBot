@@ -11,6 +11,7 @@ hub = MSHub()
 Mpair = MotorPair('E','F')
 motorL = Motor('E')
 
+
 #tourner à 90 degrés
 #reset le yaw du gyro
 hub.motion_sensor.reset_yaw_angle()
@@ -139,25 +140,30 @@ def gyroTurnOneMotor(motors, angle,speed = 8):
     print(str(hub.motion_sensor.get_yaw_angle()))
 
 def autoCleaning():
-    moveForwardCm(Mpair, 100000000000000000000)
+    Mpair.start()
 
 
 
-#pas besoin de renseigner de paramètre car la valeur par défaut est "big"
+def platooningTrucks():
+    """
+    #moveForwardCm(Mpair,40)
+    Mpair.move(38,'cm',0,30)
+    hub.motion_sensor.reset_yaw_angle()
+    #gyroTurnOneMotor(Mpair,87,10)
+    motorL.run_for_degrees(-265,30)
+    Mpair.move(40,'cm',0,30)
 """
-setWheelType()
-for i in range(10):
-    square(50,50)
-hubPrint(hub)
+    #avancer de 66 cm
+    Mpair.move(70,'cm',0,60)
+
+def turbinBlade():
+    Mpair.move(60,'cm',0,100)
+    Mpair.move(60,'cm',0,-100)
 """
+moveForwardCm(Mpair,10,30)
+gyroTurn(Mpair,90,10)
 """
-moveForwardCm(Mpair,48)
-hub.motion_sensor.reset_yaw_angle()
-gyroTurnOneMotor(Mpair,88,25)
-moveForwardCm(Mpair,45)*
-"""
-Mpair.move(60,'cm',0,100)
-Mpair.move(60,'cm',0,-100)
+platooningTrucks()
 
 
     
