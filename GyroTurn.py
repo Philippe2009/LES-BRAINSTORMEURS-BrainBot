@@ -9,7 +9,7 @@ import math
 hub = MSHub()
 
 #variable des moteurs
-Mpair = MotorPair('E','F')
+Mpair = MotorPair('F','E')
 motorL = Motor('E')
 
 
@@ -57,11 +57,11 @@ def progressiveGyroturn(robot, angle):
     distance = angle * direction
     speed = 0
     while current_angle*direction < angle*direction:
-        print()
+        print("current:",current_angle)
         robot.start_tank(speed* direction, speed*direction*-1)
         current_angle = hub.motion_sensor.get_yaw_angle()
         distance = get_distance(current_angle, angle)
-        speed = int(distance / math.fabs(angle) * 25) + 5 # we get a number between 5 and 30
+        speed = int(distance / math.fabs(angle) * 20) + 5 # we get a number between 5 and 30
     robot.stop()
 #carré
 def square(speed,gyroSpeed = 10):
@@ -162,17 +162,23 @@ def autoCleaning():
 
 
 def platooningTrucks():
-    """
     #moveForwardCm(Mpair,40)
-    Mpair.move(38,'cm',0,30)
+    Mpair.move(41,'cm',0,30)
     hub.motion_sensor.reset_yaw_angle()
-    #gyroTurnOneMotor(Mpair,87,10)
-    motorL.run_for_degrees(-265,30)
-    Mpair.move(40,'cm',0,30)
+    progressiveGyroturn(Mpair,90)
+    #motorL.run_for_degrees(-265,30)
+    Mpair.move(45,'cm',0,30)
+    motorL.run_for_degrees(80,30)
+    canon()
+    oscillate(2)
+    motorL.run_for_degrees(-40,30)
+    motorL.run_for_degrees(-80,30)
+    Mpair.move(100,'cm',0,-100)
+
 """
     #avancer de 66 cm
     Mpair.move(70,'cm',0,60)
-
+"""
 def turbinBlade():
     Mpair.move(60,'cm',0,100)
     Mpair.move(60,'cm',0,-100)
@@ -180,4 +186,14 @@ def turbinBlade():
 moveForwardCm(Mpair,10,30)
 gyroTurn(Mpair,90,10)
 """
+
+def oscillate(number):
+    for i in range(number):
+        motorL.run_for_degrees(-40,30)
+        motorL.run_for_degrees(80,30)
+        motorL.run_for_degrees(-40,30)
+
+def canon():
+    print("BOUUUM !")
+    Motor('D').run_for_degrees(-200,30)
 platooningTrucks()
