@@ -11,7 +11,7 @@ hub = MSHub()
 #variable des moteurs
 Mpair = MotorPair('F','E')
 motorL = Motor('E')
-
+topModule = Motor('D')
 
 #tourner à 90 degrés
 #reset le yaw du gyro
@@ -196,4 +196,11 @@ def oscillate(number):
 def canon():
     print("BOUUUM !")
     Motor('D').run_for_degrees(-200,30)
-platooningTrucks()
+
+Mpair.set_default_speed(30)
+Mpair.move(-70, 'cm', 0, 25)
+#moveForwardCm(Mpair,-70)
+progressiveGyroturn(Mpair, 35)
+Mpair.move(-35, 'cm', 0, 25)
+topModule.run_for_degrees(-180)
+#platooningTrucks()
