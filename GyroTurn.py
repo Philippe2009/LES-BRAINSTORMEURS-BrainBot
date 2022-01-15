@@ -159,7 +159,8 @@ def gyroTurnOneMotor(motors, angle,speed = 8):
 def autoCleaning():
     Mpair.start()
 
-
+def delay(seconds):
+    hub.wait_for_seconds(seconds)
 
 def platooningTrucks():
     #moveForwardCm(Mpair,40)
@@ -172,6 +173,7 @@ def platooningTrucks():
     canon()
     oscillate(2)
     motorL.run_for_degrees(-40,30)
+
     motorL.run_for_degrees(-80,30)
     Mpair.move(100,'cm',0,-100)
 
@@ -191,16 +193,39 @@ def oscillate(number):
     for i in range(number):
         motorL.run_for_degrees(-40,30)
         motorL.run_for_degrees(80,30)
-        motorL.run_for_degrees(-40,30)
+        motorL.run_for_degrees(-80,30)
 
 def canon():
     print("BOUUUM !")
     Motor('D').run_for_degrees(-200,30)
 
-Mpair.set_default_speed(30)
-Mpair.move(-70, 'cm', 0, 25)
-#moveForwardCm(Mpair,-70)
-progressiveGyroturn(Mpair, 35)
-Mpair.move(-35, 'cm', 0, 25)
-topModule.run_for_degrees(-180)
+def switchEngine():
+    topModule.set_degrees_counted(0)
+    """
+    topModule.run_to_degrees_counted(0, 50)
+    topModule.run_to_degrees_counted(176, 50)
+    topModule.run_to_position(0, 'shortest path', 75)
+    """
+    Mpair.set_default_speed(30)
+    Mpair.move(-71, 'cm', 0, 20)
+    #moveForwardCm(Mpair,-70)
+    # 35 : nombre de degrés que le robot doit parcourir
+    # 1/3 coef de proportionnalité: 90 degrés du moteur donnent environ 0,3 degrés du robot
+    motorL.run_for_degrees(int(-45/(1/3)), 30)
+    #progressiveGyroturn(Mpair, 35)
+    Mpair.move(-35, 'cm', 0, 25)
+    topModule.run_for_degrees(-180)
+    #platooningTrucks()
+    Mpair.move(31, 'cm', 0, 25)
+    motorL.run_for_degrees(int(90/(1/3)), 30)
+    Mpair.move(-4, 'cm', 0, 25)
+    airplane()
 #platooningTrucks()
+#switchEngine()
+def airplane():
+    topModule.run_to_position(20, 'shortest path', 75)
+    topModule.run_for_seconds(1, 100)
+
+#switchEngine()
+#motorL.run_for_degrees(int(-90/(1/3)), 30)
+switchEngine()
