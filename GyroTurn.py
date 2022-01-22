@@ -12,7 +12,7 @@ hub = MSHub()
 Mpair = MotorPair('F','E')
 motorL = Motor('E')
 topModule = Motor('D')
-
+frontMotor = Motor('C')
 #tourner à 90 degrés
 #reset le yaw du gyro
 hub.motion_sensor.reset_yaw_angle()
@@ -219,13 +219,21 @@ def switchEngine():
     Mpair.move(31, 'cm', 0, 25)
     motorL.run_for_degrees(int(90/(1/3)), 30)
     Mpair.move(-4, 'cm', 0, 25)
-    airplane()
+    #airplane()
+    airplaneModule2()
 #platooningTrucks()
 #switchEngine()
 def airplane():
     topModule.run_to_position(20, 'shortest path', 75)
-    topModule.run_for_seconds(1, 100)
+    #topModule.run_for_seconds(1, -100)
+    for i in range(3):
+        topModule.run_for_degrees(250, 100)
+        topModule.run_for_degrees(-250, 100)
 
 #switchEngine()
 #motorL.run_for_degrees(int(-90/(1/3)), 30)
-switchEngine()
+#switchEngine()
+#airplane()
+#frontMotor.run_for_degrees(90,100)
+airplaneModule2():
+    frontMotor.run_for_seconds(1, -100)
