@@ -235,5 +235,6 @@ def airplane():
 #switchEngine()
 #airplane()
 #frontMotor.run_for_degrees(90,100)
-airplaneModule2():
+def airplaneModule2():
     frontMotor.run_for_seconds(1, -100)
+switchEngine()
