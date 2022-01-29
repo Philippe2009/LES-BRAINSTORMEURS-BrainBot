@@ -10,7 +10,9 @@ hub = MSHub()
 
 #variable des moteurs
 Mpair = MotorPair('F','E')
+invertMpair = MotorPair('E','F')
 motorL = Motor('E')
+motorR = Motor('F')
 topModule = Motor('D')
 frontMotor = Motor('C')
 #tourner à 90 degrés
@@ -198,29 +200,54 @@ def oscillate(number):
 def canon():
     print("BOUUUM !")
     Motor('D').run_for_degrees(-200,30)
-
+def initAirplaneModule():
+    frontMotor.run_to_position(359, 'clockwise', 75)
 def switchEngine():
+    
+    invertMpair.set_default_speed(30)
+    invertMpair.move(-75, 'cm', 0, 20)
+    motorL.run_for_degrees(int(45/(1/3)), -30)
+    invertMpair.move(-30, 'cm', 0, 20)
+    motorL.run_for_degrees(int(45/(1/3)), 30)
+    invertMpair.move(-1, 'cm', 0, 20)
+    frontMotor.run_to_position(359, 'clockwise', 75)
+    frontMotor.run_for_degrees(-150, 30)
+    invertMpair.move(9, 'cm', 0, 20)
+    frontMotor.run_to_position(359, 'clockwise', 40)
+    invertMpair.move(-9, 'cm', 0, 20)
+    motorL.run_for_degrees(int(45/(1/3)), -30)
+    invertMpair.move(25, 'cm', 0, 20)
+    motorR.run_for_degrees(int(90/(1/3)), 30)
+    invertMpair.move(28, 'cm', 0, 20)
+    frontMotor.run_for_degrees(-95, 30)
+    invertMpair.move(33, 'cm', 0, -20)
+    frontMotor.run_for_degrees(10, 30)
+    motorR.run_for_degrees(int(90/(1/3)), 30)
+    frontMotor.run_to_position(359, 'clockwise', 40)
+    invertMpair.move(12, 'cm', 0, 20)
+    """
     topModule.set_degrees_counted(0)
-    """
-    topModule.run_to_degrees_counted(0, 50)
-    topModule.run_to_degrees_counted(176, 50)
-    topModule.run_to_position(0, 'shortest path', 75)
-    """
-    Mpair.set_default_speed(30)
-    Mpair.move(-71, 'cm', 0, 20)
+    
+    #topModule.run_to_degrees_counted(0, 50)
+    #topModule.run_to_degrees_counted(176, 50)
+    #topModule.run_to_position(0, 'shortest path', 75)
+    
+    invertMpair.set_default_speed(30)
+    invertMpair.move(-71, 'cm', 0, 20)
     #moveForwardCm(Mpair,-70)
     # 35 : nombre de degrés que le robot doit parcourir
     # 1/3 coef de proportionnalité: 90 degrés du moteur donnent environ 0,3 degrés du robot
     motorL.run_for_degrees(int(-45/(1/3)), 30)
     #progressiveGyroturn(Mpair, 35)
-    Mpair.move(-35, 'cm', 0, 25)
+    invertMpair.move(-35, 'cm', 0, 25)
     topModule.run_for_degrees(-180)
     #platooningTrucks()
-    Mpair.move(31, 'cm', 0, 25)
+    invertMpair.move(31, 'cm', 0, 25)
     motorL.run_for_degrees(int(90/(1/3)), 30)
-    Mpair.move(-4, 'cm', 0, 25)
+    invertMpair.move(-4, 'cm', 0, 25)
     #airplane()
     airplaneModule2()
+    """
 #platooningTrucks()
 #switchEngine()
 def airplane():
@@ -238,3 +265,14 @@ def airplane():
 def airplaneModule2():
     frontMotor.run_for_seconds(1, -100)
 switchEngine()
+"""
+Pendant la séance du 29/01/2022 nous avons créé un nouveau module et adapté le programme pour lui.
+Nous avons fait la lmission de l'avion(qu'il fallait pousser)
+or, le module ne montait pas assez haut, christophe l'a donc modifié
+pour la prochaine séance, il faudra donc adapter le programme pour cette modification
+"""
+
+
+
+
+
