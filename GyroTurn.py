@@ -1,3 +1,4 @@
+
 from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
 from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
@@ -203,9 +204,20 @@ def canon():
 def initAirplaneModule():
     frontMotor.run_to_position(359, 'clockwise', 75)
 def switchEngine():
-    
+     invertMpair.set_default_speed(30)
+     invertMpair.move(-10, 'cm', 0, 20)
+     motorL.run_for_degrees(int(45/(1/3)), -30)
+     invertMpair.move(-20, 'cm', 0, 20)
+     motorL.run_for_degrees(int(45/(1/3)), 30)
+     invertMpair.move(-70, 'cm', 0, 20)
+     frontMotor.run_for_degrees(-150, 30)
+     invertMpair.move(9, 'cm', 0, 20)
+     frontMotor.run_for_degrees(150, 30)
+     invertMpair.move(35, 'cm', 0, 20)
+     motorL.run_for_degrees(int(45/(1/3)), 30)
+"""
     invertMpair.set_default_speed(30)
-    invertMpair.move(-75, 'cm', 0, 20)
+    invertMpair.move(-73, 'cm', 0, 20)
     motorL.run_for_degrees(int(45/(1/3)), -30)
     invertMpair.move(-30, 'cm', 0, 20)
     motorL.run_for_degrees(int(45/(1/3)), 30)
@@ -225,13 +237,14 @@ def switchEngine():
     motorR.run_for_degrees(int(90/(1/3)), 30)
     frontMotor.run_to_position(359, 'clockwise', 40)
     invertMpair.move(12, 'cm', 0, 20)
-    """
+"""
+"""
     topModule.set_degrees_counted(0)
-    
+
     #topModule.run_to_degrees_counted(0, 50)
     #topModule.run_to_degrees_counted(176, 50)
     #topModule.run_to_position(0, 'shortest path', 75)
-    
+
     invertMpair.set_default_speed(30)
     invertMpair.move(-71, 'cm', 0, 20)
     #moveForwardCm(Mpair,-70)
@@ -247,7 +260,7 @@ def switchEngine():
     invertMpair.move(-4, 'cm', 0, 25)
     #airplane()
     airplaneModule2()
-    """
+"""
 #platooningTrucks()
 #switchEngine()
 def airplane():
@@ -271,7 +284,6 @@ Nous avons fait la lmission de l'avion(qu'il fallait pousser)
 or, le module ne montait pas assez haut, christophe l'a donc modifié
 pour la prochaine séance, il faudra donc adapter le programme pour cette modification
 """
-
 
 
 
