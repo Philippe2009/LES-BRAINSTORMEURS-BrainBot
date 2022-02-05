@@ -204,17 +204,34 @@ def canon():
 def initAirplaneModule():
     frontMotor.run_to_position(359, 'clockwise', 75)
 def switchEngine():
+    
      invertMpair.set_default_speed(30)
      invertMpair.move(-10, 'cm', 0, 20)
      motorL.run_for_degrees(int(45/(1/3)), -30)
      invertMpair.move(-20, 'cm', 0, 20)
      motorL.run_for_degrees(int(45/(1/3)), 30)
-     invertMpair.move(-70, 'cm', 0, 20)
-     frontMotor.run_for_degrees(-150, 30)
-     invertMpair.move(9, 'cm', 0, 20)
-     frontMotor.run_for_degrees(150, 30)
-     invertMpair.move(35, 'cm', 0, 20)
+     invertMpair.move(-70, 'cm', 0, 50)
+     frontMotor.run_for_degrees(-100, 30)
+     invertMpair.move(6, 'cm', 0, 30)  
+      # je monte le moteur   
+     frontMotor.run_for_degrees(100, 20)
+     invertMpair.move(28, 'cm', 0, 30)
      motorL.run_for_degrees(int(45/(1/3)), 30)
+     invertMpair.move(17, 'cm', 0, 20)
+     frontMotor.run_for_degrees(-100, 20)
+     frontMotor.stop()
+     #on avance l'avion
+     invertMpair.move(-25, 'cm', 0, 50)
+     frontMotor.run_for_degrees(100, 20)
+     motorL.run_for_degrees(int(90/(1/3)), 30)
+     invertMpair.move(11, 'cm', 0, 20)
+     frontMotor.run_for_degrees(-100, 30)
+     frontMotor.run_for_degrees(100, 20)
+     invertMpair.move(-90, 'cm', 0, 100)
+
+
+def stopFrontMotor():
+    frontMotor.stop()
 """
     invertMpair.set_default_speed(30)
     invertMpair.move(-73, 'cm', 0, 20)
@@ -271,19 +288,29 @@ def airplane():
         topModule.run_for_degrees(-250, 100)
 
 #switchEngine()
-#motorL.run_for_degrees(int(-90/(1/3)), 30)
-#switchEngine()
+frontMotor.run_for_degrees(-100, 30)
+
 #airplane()
 #frontMotor.run_for_degrees(90,100)
 def airplaneModule2():
     frontMotor.run_for_seconds(1, -100)
-switchEngine()
+
 """
 Pendant la séance du 29/01/2022 nous avons créé un nouveau module et adapté le programme pour lui.
 Nous avons fait la lmission de l'avion(qu'il fallait pousser)
 or, le module ne montait pas assez haut, christophe l'a donc modifié
 pour la prochaine séance, il faudra donc adapter le programme pour cette modification
 """
+
+"""
+Séance du 05/02/22
+La mission de l'avion fonctionne presque en fin de run. Il ne manque plus qu'un callage
+sur la ligne.
+On pense utiliser le module du dessus pour positionner la brique tombée de l'avion
+complètement dans le cercle
+Avec le callage on a un run complet et on peut penser au suivant
+"""
+
 
 
 
