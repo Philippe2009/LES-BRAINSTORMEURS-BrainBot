@@ -11,6 +11,7 @@ hub = MSHub()
 
 #variable des moteurs
 Mpair = MotorPair('F','E')
+robot = MotorPair('F','E')
 invertMpair = MotorPair('E','F')
 motorL = Motor('E')
 motorR = Motor('F')
@@ -204,31 +205,43 @@ def canon():
 def initAirplaneModule():
     frontMotor.run_to_position(359, 'clockwise', 75)
 def switchEngine():
-    
-     invertMpair.set_default_speed(30)
-     invertMpair.move(-10, 'cm', 0, 20)
-     motorL.run_for_degrees(int(45/(1/3)), -30)
-     invertMpair.move(-20, 'cm', 0, 20)
-     motorL.run_for_degrees(int(45/(1/3)), 30)
-     invertMpair.move(-70, 'cm', 0, 50)
-     frontMotor.run_for_degrees(-100, 30)
-     invertMpair.move(6, 'cm', 0, 30)  
-      # je monte le moteur   
-     frontMotor.run_for_degrees(100, 20)
-     invertMpair.move(28, 'cm', 0, 30)
-     motorL.run_for_degrees(int(45/(1/3)), 30)
-     invertMpair.move(17, 'cm', 0, 20)
-     frontMotor.run_for_degrees(-100, 20)
-     frontMotor.stop()
-     #on avance l'avion
-     invertMpair.move(-25, 'cm', 0, 50)
-     frontMotor.run_for_degrees(100, 20)
-     motorL.run_for_degrees(int(90/(1/3)), 30)
-     invertMpair.move(11, 'cm', 0, 20)
-     frontMotor.run_for_degrees(-100, 30)
-     frontMotor.run_for_degrees(100, 20)
-     invertMpair.move(-90, 'cm', 0, 100)
+    invertMpair.set_default_speed(30)
+    invertMpair.move(-10, 'cm', 0, 20)
+    motorL.run_for_degrees(int(45/(1/3)), -30)
+    invertMpair.move(-20, 'cm', 0, 20)
+    motorL.run_for_degrees(int(45/(1/3)), 30)
+    invertMpair.move(-70, 'cm', 0, 50)
+    frontMotor.run_for_degrees(-100, 30)
+    #je recule avant le moteur
+    invertMpair.move(10, 'cm', 0, 30)
+    # je monte le moteur
+    frontMotor.run_for_degrees(100, 20)
+    invertMpair.move(7, 'cm', 0, 20)
+    invertMpair.move_tank(-135/(180/273), 'degrees', 10, -10)
+    invertMpair.move(2, 'cm', 0, 20)
+    frontMotor.run_for_degrees(-100, 100)
+    #on retourne a la maison
+    invertMpair.move_tank(-20/(180/273), 'degrees', 10, -10)
+    invertMpair.move(-90, 'cm', 0, 100)
 
+    """
+    invertMpair.move(25, 'cm', 0, 30)
+    motorL.run_for_degrees(int(45/(1/3)), 30)
+    invertMpair.move(16, 'cm', 0, 20)
+    frontMotor.run_for_degrees(-100, 20)
+    frontMotor.stop()
+    """
+    """
+    #on avance l'avion
+    invertMpair.move(-25, 'cm', 0, 50)
+    frontMotor.run_for_degrees(100, 20)
+    frontMotor.stop()
+    motorL.run_for_degrees(int(90/(1/3)), 30)
+    invertMpair.move(11, 'cm', 0, 20)
+    frontMotor.run_for_degrees(-100, 100)
+    frontMotor.run_for_degrees(100, 20)
+    invertMpair.move(-90, 'cm', 0, 100)
+"""
 
 def stopFrontMotor():
     frontMotor.stop()
@@ -288,12 +301,18 @@ def airplane():
         topModule.run_for_degrees(-250, 100)
 
 #switchEngine()
-frontMotor.run_for_degrees(-100, 30)
-
+#frontMotor.run_for_degrees(-100, 30)
+#platooningTrucks()
 #airplane()
 #frontMotor.run_for_degrees(90,100)
 def airplaneModule2():
     frontMotor.run_for_seconds(1, -100)
+def missionPlatooningTrucks():
+    invertMpair.move(-30, 'cm', 0, 30)
+    motorR.run_for_degrees(int(-89/(1/3)), 20)
+    invertMpair.move(-40, 'cm', 0, 30)
+    invertMpair.move(80, 'cm', 0, 100)
+    motorR.run_for_degrees(int(89/(1/3)), 100)
 
 """
 Pendant la séance du 29/01/2022 nous avons créé un nouveau module et adapté le programme pour lui.
@@ -310,7 +329,13 @@ On pense utiliser le module du dessus pour positionner la brique tombée de l'av
 complètement dans le cercle
 Avec le callage on a un run complet et on peut penser au suivant
 """
-
+"""
+séance du 12/02/22
+On a décidé de faire l'avion avec la ligne plus tard.
+La mission pour décharger l'avion cargo marche
+On a le premier run complet
+"""
+switchEngine()
 
 
 
