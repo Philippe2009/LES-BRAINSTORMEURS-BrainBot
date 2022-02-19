@@ -17,6 +17,7 @@ motorL = Motor('E')
 motorR = Motor('F')
 topModule = Motor('D')
 frontMotor = Motor('C')
+backMotor = Motor('D')
 #tourner à 90 degrés
 #reset le yaw du gyro
 hub.motion_sensor.reset_yaw_angle()
@@ -308,12 +309,27 @@ def airplane():
 def airplaneModule2():
     frontMotor.run_for_seconds(1, -100)
 def missionPlatooningTrucks():
-    invertMpair.move(-30, 'cm', 0, 30)
+    invertMpair.move(-29, 'cm', 0, 30)
     motorR.run_for_degrees(int(-89/(1/3)), 20)
-    invertMpair.move(-40, 'cm', 0, 30)
+    invertMpair.move(-49, 'cm', 0, 30)
     invertMpair.move(80, 'cm', 0, 100)
     motorR.run_for_degrees(int(89/(1/3)), 100)
 
+# la fonction du projet innovant
+def innovationProject():
+    pass
+    
+# la fonction du pont 
+def bridge():
+    invertMpair.move(22, 'cm', 0, 30)
+    motorR.run_for_degrees(int(-89/(1/3)), 20)
+    invertMpair.move(106, 'cm', 0, 30)
+    motorR.run_for_degrees(int(44/(1/3)), 20)
+    backMotor.run_for_degrees(35,10)
+    frontMotor.run_for_degrees(75,10)
+    invertMpair.move(-10, 'cm', 0, 30)
+    motorR.run_for_degrees(int(135/(1/3)), 20)
+    invertMpair.move(150, 'cm', 0, 100)
 """
 Pendant la séance du 29/01/2022 nous avons créé un nouveau module et adapté le programme pour lui.
 Nous avons fait la lmission de l'avion(qu'il fallait pousser)
@@ -335,8 +351,10 @@ On a décidé de faire l'avion avec la ligne plus tard.
 La mission pour décharger l'avion cargo marche
 On a le premier run complet
 """
+"""
+séance du 19/02/22
+nous avons fait la mission du projet innovant mais elle ne marche pas vraiment et elle est à RETRAVAILLER
+ 
+"""
 switchEngine()
-
-
-
-
+#bridge()
