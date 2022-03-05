@@ -11,7 +11,9 @@ color_right = ColorSensor('B')
 color_left = ColorSensor('A')
 motor_pair = MotorPair('E', 'F')
 motor_left = Motor('E')
+motor_right = Motor('F')
 motor_back = Motor('C')
+motor_front = Motor('D')
 motor_back.set_stop_action('coast')
 
 # on attrappe la ligne
@@ -38,17 +40,64 @@ def follow_line(color, distance):
         motor_pair.start_tank_at_power(int(30+correction), int(30-correction))
     motor_pair.stop()
 
-catchline()
-follow_line(color_right, 1350)
-motor_back.run_for_degrees(-90, 30)
-motor_pair.move_tank(17, 'cm', -70, -70)
-motor_back.run_for_degrees(90, 30)
-motor_pair.start_tank(30, 30)
-while color_left.get_color()!='black':
-    pass
-motor_pair.stop()
-motor_pair.move_tank(135, 'degrees', 0, 10)
-motor_pair.move_tank(7, 'cm', 20, 20)
-motor_pair.move_tank(135, 'degrees', 10, 0)
-motor_back.run_for_degrees(-20, 30)
-motor_pair.move_tank(25, 'cm', 50, 50)
+def turnToLine(color, power = 20): 
+    motor_pair.start_tank(0, power)
+    while color.get_color()!='black':
+        pass
+    motor_pair.stop()
+
+
+def moveToLine(color):
+    motor_pair.start_tank(30, 30)
+    while color.get_color()!='black':
+        pass
+    motor_pair.stop()
+def grue():
+    motor_front.run_for_degrees(180, 30)
+    catchline()
+    follow_line(color_right, 1350)
+    motor_back.run_for_degrees(-90, 30)
+    # on recule pour le camion
+    motor_pair.move_tank(22, 'cm', -100, -100)
+    motor_back.run_for_degrees(90, 30)
+    moveToLine(color_left)
+    motor_pair.move_tank(-5, 'cm', 20, 20)
+    motor_pair.move_tank(135, 'degrees', 0, 10)
+    moveToLine(color_right)
+    turnToLine(color_right)
+    motor_pair.move_tank(9, 'cm', 30, 30)
+    motor_pair.move_tank(90*1.5, 'degrees', 0, -30)
+    motor_front.run_for_degrees(-250, 30)
+    # on avance(comme des bourrins) au niveau de la grue
+    motor_front.set_stop_action('hold')
+    motor_pair.move_tank(30, 'cm', 70, 70)
+    motor_pair.move_tank(-20, 'cm', 30, 30)
+    motor_front.set_stop_action('coast')
+    motor_front.run_for_degrees(180, 30)
+    motor_pair.move_tank(45*1.5, 'degrees', 30, 0)
+    motor_pair.move_tank(20, 'cm', 20, 20)
+    moveToLine(color_left)
+    turnToLine(color_right)
+    follow_line(color_right, 500)
+    moveToLine(color_left)
+    motor_pair.move_tank(-1, 'cm', 30, 30)
+    motor_pair.move_tank(1.5*1.5, 'cm', 20, 0)
+    motor_pair.move_tank(3, 'cm', 50, 50)
+    motor_pair.move_tank(-10, 'cm', 30, 30)
+    motor_pair.move_tank(180, 'degrees', 30, -30)
+    turnToLine(color_left,-20)
+    motor_pair.move_tank(2*1.5, 'cm', 30, 0)
+    motor_back.set_stop_action('brake')
+    motor_back.run_for_degrees(-35, 20)
+    motor_back.set_stop_action('coast')
+    """
+    motor_pair.move_tank(140, 'degrees', 20, 0)
+    motor_front.run_for_degrees(-210, 30)
+    motor_pair.move_tank(25, 'cm', 50, 50)
+    """
+#grue()
+
+#follow_line(color_left, 2700)
+
+
+
