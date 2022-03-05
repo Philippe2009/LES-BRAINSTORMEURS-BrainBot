@@ -59,7 +59,8 @@ def grue():
     motor_back.run_for_degrees(-90, 30)
     # on recule pour le camion
     motor_pair.move_tank(22, 'cm', -100, -100)
-    motor_back.run_for_degrees(90, 30)
+    motor_back.set_stop_action('brake')
+    motor_back.run_for_degrees(120, 30)
     moveToLine(color_left)
     motor_pair.move_tank(-5, 'cm', 20, 20)
     motor_pair.move_tank(135, 'degrees', 0, 10)
@@ -74,30 +75,49 @@ def grue():
     motor_pair.move_tank(-20, 'cm', 30, 30)
     motor_front.set_stop_action('coast')
     motor_front.run_for_degrees(180, 30)
-    motor_pair.move_tank(45*1.5, 'degrees', 30, 0)
+    motor_pair.move_tank(40*1.5, 'degrees', 30, 0)
     motor_pair.move_tank(20, 'cm', 20, 20)
     moveToLine(color_left)
     turnToLine(color_right)
     follow_line(color_right, 500)
     moveToLine(color_left)
+    # on est à l'hélicoptère
     motor_pair.move_tank(-1, 'cm', 30, 30)
     motor_pair.move_tank(1.5*1.5, 'cm', 20, 0)
+    # on fait l'hélicoptère
     motor_pair.move_tank(3, 'cm', 50, 50)
     motor_pair.move_tank(-10, 'cm', 30, 30)
-    motor_pair.move_tank(180, 'degrees', 30, -30)
+    motor_pair.move_tank(180, 'degrees', 20, -20)
     turnToLine(color_left,-20)
-    motor_pair.move_tank(2*1.5, 'cm', 30, 0)
+    motor_pair.move_tank(2, 'cm', 30, 0)
     motor_back.set_stop_action('brake')
-    motor_back.run_for_degrees(-35, 20)
+    motor_back.run_for_degrees(-50, 20)
     motor_back.set_stop_action('coast')
+    follow_line(color_left, 1500)
+    motor_back.set_stop_action('brake')
+    motor_back.run_for_degrees(90, 100)
+    motor_pair.move_tank(20, 'cm', 50, 50)
+    motor_back.set_stop_action('brake')
+    motor_back.run_for_degrees(-70, 20)
+    motor_back.set_stop_action('coast')
+    motor_pair.move_tank(-15, 'cm', 70, 70)
+    motor_back.set_stop_action('brake')
+    motor_back.run_for_degrees(90, 100)
+    motor_back.set_stop_action('coast')
+    followLine(color_left, 500)
+    motor_pair.move_tank(100, 'cm', 100, 100)
     """
     motor_pair.move_tank(140, 'degrees', 20, 0)
     motor_front.run_for_degrees(-210, 30)
     motor_pair.move_tank(25, 'cm', 50, 50)
     """
 #grue()
+motor_pair.move_tank(100, 'cm', 100, 100)
 
-#follow_line(color_left, 2700)
 
+"""
+séance du 05/03/2022
+on a fait le pont , la grue , le camion, l'hélico
 
+"""
 
