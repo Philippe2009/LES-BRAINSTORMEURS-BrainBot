@@ -40,18 +40,21 @@ def follow_line(color, distance):
         motor_pair.start_tank_at_power(int(30+correction), int(30-correction))
     motor_pair.stop()
 
+# Tourne jusqu'à rencontrer une ligne
 def turnToLine(color, power = 20): 
     motor_pair.start_tank(0, power)
     while color.get_color()!='black':
         pass
     motor_pair.stop()
 
-
+# Avance jusqu'à rencontrer une ligne
 def moveToLine(color):
     motor_pair.start_tank(30, 30)
     while color.get_color()!='black':
         pass
     motor_pair.stop()
+    
+# Programme principal
 def grue():
     motor_front.run_for_degrees(180, 30)
     catchline()
