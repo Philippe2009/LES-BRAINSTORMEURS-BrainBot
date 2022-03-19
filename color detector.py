@@ -17,9 +17,11 @@ hub.speaker.beep()
 
 # on déclare la fonction (le regroupement d'instruction) pour afficher la couleur sur le hub
 # déclarer veut dire : "c'est ça CETE fonction"
-def display_color():
-    # je vais répéter cela 100 fois
-    for i in range(100):
+def display_color(duration):
+    # je vais répéter cela pendant valeur de duration qui est en minutes
+    # grace a  une proportionnalité, je sais pendant combien de temps la boucle durera
+    # on a vu que 1000 dans la boucle = 15 min et 15/1000 = 0.015
+    for i in range(duration/0.015):
         # on revérifie la couleur détectée
         color = color_sensor.get_color()
         # on vérifie si une couleur est détectée
@@ -27,12 +29,12 @@ def display_color():
             # on allume le boutton du hub de la même couleur que celle détectée
             hub.status_light.on(color)
             # on affiche la couleur détectée 
-            hub.light_matrix.write(color)
+            hub.light_matrix.write(color[0])
         # le "sinon" de la condition 
         else :
             # si on ne détécte pas de couleur, on l'affiche
-            hub.light_matrix.write('No color detected')
-    
+            hub.light_matrix.write('X')
+        wait_for_seconds(3)
 
 # pour faire fonctionner une fonction, il faut l'appeler( car en effet, nous l'avons juste déclaré juste avant)
-display_color()
+display_color(30)
