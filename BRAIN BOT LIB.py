@@ -34,5 +34,8 @@ def move_until(robot,motor_sensor_degrees, distance_degrees,speed):
         print("ERREUR: LA VARIABLE DE LA DISTANCE NE DOIT PAS ETRE NEGATIVE(VOIR FONCTION move_until())")
 
 # la mission "television"
-move_until(brain_bot,right_motor, 1250, 50) 
-move_until(brain_bot,right_motor, 1250, -100)
+def mission_television():
+    move_until(brain_bot,right_motor, 1250, 50) 
+    move_until(brain_bot,right_motor, 1250, -100)
+
+mission_television()
