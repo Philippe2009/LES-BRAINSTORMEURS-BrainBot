@@ -18,7 +18,7 @@ right_motor = Motor('C')
 right_motor.set_degrees_counted(0)
 
 #le moteur du module du haut
-top_module = Motor('E')
+top_module_motor = Motor('E')
 # nous définissons que quand le robot s'arrête, il ne freine pas
 brain_bot.set_stop_action('coast')
 
@@ -39,12 +39,15 @@ def move_until(robot,motor_sensor_degrees, distance_degrees,speed):
 # la mission "television"
 def mission_television():
     move_until(brain_bot,right_motor, 1250, 50)
-    move_until(brain_bot,right_motor, 1250, -100)
-
-top_module.run_to_position(359, 'counterclockwise', 75)
+    move_until(brain_bot,right_motor, 400, -60)
+    
 """
+top_module.run_to_position(85,"shortest path", 75)
+top_module.run_to_position(200, 'clockwise', 75)
+"""
+
+top_module_motor.run_for_degrees(70, 30)
 mission_television()
 brain_bot.move_tank(1500, 'degrees', 55, 75)
-brain_bot.move_tank(750, 'degrees', 75, 55)
-
-"""
+brain_bot.move_tank(625, 'degrees', 75, 55)
+top_module_motor.run_for_degrees(120, 30)
