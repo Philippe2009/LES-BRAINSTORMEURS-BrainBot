@@ -29,6 +29,7 @@ def move_until_straight(robot,motor_sensor_degrees, distance_degrees,speed):
     while abs(motor_sensor_degrees.get_degrees_counted()) <= abs(distance_degrees):
         robot.start_tank(speed, speed)
         print(motor_sensor_degrees.get_degrees_counted())
+        #enlever le robot.stop() pour que ce soit progressif
     robot.stop()
     motor_sensor_degrees.set_degrees_counted(0)
     if distance_degrees < 0:
