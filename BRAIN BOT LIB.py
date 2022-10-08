@@ -16,12 +16,15 @@ brain_bot = MotorPair('B', 'C')
 # moteur de droite
 right_motor = Motor('C')
 right_motor.set_degrees_counted(0)
+
+#le moteur du module du haut
+top_module = Motor('E')
 # nous définissons que quand le robot s'arrête, il ne freine pas
 brain_bot.set_stop_action('coast')
 
 # la fonction pour avancer une certaine distance fluidement avec un certain nombre de degrés
 # le paramètre "robot" prends la MotorPair
-# le paramètre "robot_sensor_degrees" prends la variable du moteur qui va  servir de capteur pour le nombre de degrés parcouru
+# le paramètre "robot_sensor_degrees" prends la variable du moteur qui vaservir de capteur pour le nombre de degrés parcouru
 # le paramère "degrees" prends le nombre de degrés que l'on va parcourrir
 # le paramètre "speed" pends en compte la vitesse
 def move_until(robot,motor_sensor_degrees, distance_degrees,speed):
@@ -35,7 +38,13 @@ def move_until(robot,motor_sensor_degrees, distance_degrees,speed):
 
 # la mission "television"
 def mission_television():
-    move_until(brain_bot,right_motor, 1250, 50) 
+    move_until(brain_bot,right_motor, 1250, 50)
     move_until(brain_bot,right_motor, 1250, -100)
 
+top_module.run_to_position(359, 'counterclockwise', 75)
+"""
 mission_television()
+brain_bot.move_tank(1500, 'degrees', 55, 75)
+brain_bot.move_tank(750, 'degrees', 75, 55)
+
+"""
