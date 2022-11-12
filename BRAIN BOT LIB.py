@@ -51,7 +51,7 @@ def move_until_curve(robot,motor_sensor_degrees, distance_degrees,speed_motor_le
     while abs(motor_sensor_degrees.get_degrees_counted()) <= abs(distance_degrees):
         robot.start_tank(speed_motor_left, speed_motor_right)
         print(motor_sensor_degrees.get_degrees_counted())
-    if stop_when_destination_reached: 
+    if stop_when_destination_reached:
         robot.stop()
     motor_sensor_degrees.set_degrees_counted(0)
     if distance_degrees < 0:
@@ -99,18 +99,16 @@ def first_run():
 """
 Main: NE MARCHE PAS
 """
-move_until_curve(brain_bot,right_motor,546 ,25,65)
-move_until_straight(brain_bot,right_motor, 1050, 50)
+move_until_straight(brain_bot,right_motor, 1550, 30)
 
-move_until_curve(brain_bot,right_motor,260 ,65,25)
-#move_until_straight(brain_bot,right_motor, 500, 50)
-while right_color_sensor.get_reflected_light() <= 70:
-    brain_bot.start_tank(30,30)
-while left_color_sensor.get_reflected_light() >= 45 and right_color_sensor.get_reflected_light() >= 45:
-    brain_bot.start_tank(50,50)
+move_until_curve(brain_bot,right_motor,265 ,16,5)
+move_until_straight(brain_bot,right_motor, 600, 30)
+#while right_color_sensor.get_reflected_light() <= 70:
+ #   brain_bot.start_tank(30,30)
+#while left_color_sensor.get_reflected_light() >= 45 and right_color_sensor.get_reflected_light() >= 45:
+ #   brain_bot.start_tank(50,50)
 
 brain_bot.stop()
 print("ligne noire")
 #move_until_curve(brain_bot,right_motor,1910 ,66,55)
 brain_bot.stop()
-
