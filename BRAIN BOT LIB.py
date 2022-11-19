@@ -102,21 +102,30 @@ def first_run():
 Main: NE MARCHE PAS
 """
 
-motor_pair.move_tank(90, 'degrees', -90, -90)
+#motor_pair.move_tank(90, 'degrees', -90, -90)
 
-move_until_straight(brain_bot,right_motor, 1550, 30)
+#move_until_straight(brain_bot,right_motor, 1550, 30)
 
-move_until_curve(brain_bot,right_motor,265 ,16,5)
-move_until_straight(brain_bot,right_motor, 600, 30)
+#move_until_curve(brain_bot,right_motor,265 ,16,5)
+#move_until_straight(brain_bot,right_motor, 600, 30)
 
-move_until_straight(top_module_motor, 400, 30)
+#move_until_straight(top_module_motor, 400, 30)
 #while right_color_sensor.get_reflected_light() <= 70:
  #brain_bot.start_tank(30,30)
 #while left_color_sensor.get_reflected_light() >= 45 and right_color_sensor.get_reflected_light() >= 45:
  #brain_bot.start_tank(50,50)
 
-brain_bot.stop()
-print("ligne noire")
+#brain_bot.stop()
+#print("ligne noire")
 #move_until_curve(brain_bot,right_motor,1910 ,66,55)
-brain_bot.stop()
+#brain_bot.stop()
+
+brain_bot.move(72,'cm',0,50)
+left_motor.run_for_degrees(-250, 50)
+for i in range(4):
+    brain_bot.move(-10,'cm',0,100)
+    wait_for_seconds(1)
+    brain_bot.move(20,'cm',0,100)
+left_motor.run_for_degrees(250, 100)
+brain_bot.move(-72,'cm',0,100)
 
