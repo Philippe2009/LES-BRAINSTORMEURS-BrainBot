@@ -1,5 +1,3 @@
-
-
 from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
 from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
@@ -9,6 +7,7 @@ import math
 
 # Create your objects here.
 hub = MSHub()
+
 # Write your program here.
 hub.speaker.beep()
 # la variable des moteurs du robot
@@ -22,7 +21,7 @@ left_motor.set_degrees_counted(0)
 left_color_sensor = ColorSensor('A')
 right_color_sensor = ColorSensor('D')
 #le moteur du module du haut
-motor_pair = MotorPair('E', 'F')
+top_module_motor = Motor('E')
 # nous définissons que quand le robot s'arrête, il ne freine pas
 brain_bot.set_stop_action('coast')
 
@@ -101,31 +100,28 @@ def first_run():
 """
 Main: NE MARCHE PAS
 """
+move_until_straight(brain_bot,right_motor, 1550, 30)
 
-#motor_pair.move_tank(90, 'degrees', -90, -90)
-
-#move_until_straight(brain_bot,right_motor, 1550, 30)
-
-#move_until_curve(brain_bot,right_motor,265 ,16,5)
-#move_until_straight(brain_bot,right_motor, 600, 30)
-
-#move_until_straight(top_module_motor, 400, 30)
+move_until_curve(brain_bot,right_motor,265 ,16,5)
+move_until_straight(brain_bot,right_motor, 600, 30)
 #while right_color_sensor.get_reflected_light() <= 70:
  #brain_bot.start_tank(30,30)
 #while left_color_sensor.get_reflected_light() >= 45 and right_color_sensor.get_reflected_light() >= 45:
  #brain_bot.start_tank(50,50)
-
-#brain_bot.stop()
-#print("ligne noire")
+'''
+brain_bot.stop()
+print("ligne noire")
 #move_until_curve(brain_bot,right_motor,1910 ,66,55)
-#brain_bot.stop()
+brain_bot.stop()
+'''
 
 brain_bot.move(72,'cm',0,50)
 left_motor.run_for_degrees(-250, 50)
 for i in range(4):
     brain_bot.move(-10,'cm',0,100)
-    wait_for_seconds(1)
-    brain_bot.move(20,'cm',0,100)
+    brain_bot.move(43,'cm',0,100)
 left_motor.run_for_degrees(250, 100)
 brain_bot.move(-72,'cm',0,100)
+
+
 
