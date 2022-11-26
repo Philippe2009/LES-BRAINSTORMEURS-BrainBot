@@ -134,9 +134,15 @@ brain_bot.move(350,'degrees',0,50)
 right_motor.run_for_degrees(125, 30)
 brain_bot.move(900,'degrees',0,50)
 left_motor.run_for_degrees(-350, 30)
-for i in range(4):
-    brain_bot.move(350,'degrees',0,75)
+# essayer 4
+for i in range(3):
+    brain_bot.move(375,'degrees',0,100)
     wait_for_seconds(0.75)
     brain_bot.move(-300,'degrees',0,25)
+# essayer avec 500
+brain_bot.move(400,'degrees',0,75)
+wait_for_seconds(0.75)
+brain_bot.move(-300,'degrees',0,25)
 
-
+left_motor.run_for_degrees(-450, 30)
+brain_bot.move(1250,'degrees',0,50)
