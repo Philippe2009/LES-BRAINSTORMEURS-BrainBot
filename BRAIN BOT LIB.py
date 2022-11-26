@@ -129,7 +129,7 @@ for i in range(4):
 left_motor.run_for_degrees(250, 100)
 brain_bot.move(-72,'cm',0,100)
 '''
-
+# l'eolienne
 brain_bot.move(350,'degrees',0,50)
 right_motor.run_for_degrees(125, 30)
 brain_bot.move(900,'degrees',0,50)
