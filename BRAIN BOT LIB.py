@@ -166,4 +166,12 @@ def eolienne():
     left_motor.run_for_degrees(-450, 30)
     brain_bot.move(1250,'degrees',0,50)
 
-follow_line(color, 10000)
+def hand():
+    brain_bot.move_tank(1750,'degrees', 30, 30)
+    #120
+    left_motor.run_for_degrees(-450, 35)
+    brain_bot.move_tank(-400,'degrees', 30, 30)
+    follow_line(color,450,30)
+    brain_bot.move_tank(850,'degrees', 30, 30)
+
+follow_line(color, 10000, 30)
