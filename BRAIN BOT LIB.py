@@ -165,13 +165,17 @@ def eolienne():
     # retour ne marche pas
     left_motor.run_for_degrees(-450, 30)
     brain_bot.move(1250,'degrees',0,50)
-
+    
 def hand():
-    brain_bot.move_tank(1750,'degrees', 30, 30)
+    brain_bot.move_tank(1750,'degrees', SPEED, SPEED)
     #120
     left_motor.run_for_degrees(-450, 35)
-    brain_bot.move_tank(-400,'degrees', 30, 30)
+    brain_bot.move_tank(-350,'degrees', SPEED, SPEED)
     follow_line(color,450,30)
-    brain_bot.move_tank(850,'degrees', 30, 30)
+    brain_bot.move_tank(850,'degrees', 98, 100)
+    #retour
+    brain_bot.move_tank(-1200,'degrees', 100, 100)
+    right_motor.run_for_degrees(500, 35)
+    brain_bot.move_tank(2000,'degrees', 100, 100)
 
 follow_line(color, 10000, 30)
