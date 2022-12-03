@@ -9,6 +9,8 @@ import math
 hub = MSHub()
 # Write your program here.
 hub.speaker.beep()
+# capteur de couleur de gauche 
+color = ColorSensor('D')
 # la variable des moteurs du robot
 brain_bot = MotorPair('B', 'C')
 # moteur de droite
@@ -57,6 +59,23 @@ def move_until_curve(robot,motor_sensor_degrees, distance_degrees,speed_motor_le
     if distance_degrees < 0:
         print("ERREUR: LA VARIABLE DE LA DISTANCE NE DOIT PAS ETRE NEGATIVE(VOIR FONCTION move_until())")
 
+
+def follow_line(color, distance):
+    integral = 0
+    lastError = 0
+    left_motor.set_degrees_counted(0)
+
+    while abs(left_motor.get_degrees_counted()) < distance:
+        error = color.get_reflected_light() - 70
+        P_fix = error * 0.5
+        integral = integral + error # or integral+=error
+        I_fix = integral * 0
+        derivative = error - lastError
+        lastError = error
+        D_fix = derivative * 0
+        correction = P_fix + I_fix + D_fix
+        brain_bot.start_tank_at_power(int(50+correction), 50)
+    brain_bot.stop()
 
 
 # la mission "television"
@@ -125,24 +144,26 @@ for i in range(4):
     brain_bot.move(-10,'cm',0,100)
     wait_for_seconds(1)
     brain_bot.move(20,'cm',0,100)
-
 left_motor.run_for_degrees(250, 100)
 brain_bot.move(-72,'cm',0,100)
 '''
 # l'eolienne
-brain_bot.move(350,'degrees',0,50)
-right_motor.run_for_degrees(125, 30)
-brain_bot.move(900,'degrees',0,50)
-left_motor.run_for_degrees(-350, 30)
-# essayer 4
-for i in range(3):
-    brain_bot.move(375,'degrees',0,100)
+def eolienne():
+    brain_bot.move(350,'degrees',0,50)
+    right_motor.run_for_degrees(125, 30)
+    brain_bot.move(900,'degrees',0,50)
+    left_motor.run_for_degrees(-350, 30)
+    # essayer 4
+    for i in range(3):
+        brain_bot.move(375,'degrees',0,100)
+        wait_for_seconds(0.75)
+        brain_bot.move(-300,'degrees',0,25)
+    # essayer avec 500
+    brain_bot.move(400,'degrees',0,75)
     wait_for_seconds(0.75)
     brain_bot.move(-300,'degrees',0,25)
-# essayer avec 500
-brain_bot.move(400,'degrees',0,75)
-wait_for_seconds(0.75)
-brain_bot.move(-300,'degrees',0,25)
-# retour ne marche pas
-left_motor.run_for_degrees(-450, 30)
-brain_bot.move(1250,'degrees',0,50)
+    # retour ne marche pas
+    left_motor.run_for_degrees(-450, 30)
+    brain_bot.move(1250,'degrees',0,50)
+
+follow_line(color, 10000)
