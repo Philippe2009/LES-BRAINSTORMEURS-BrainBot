@@ -9,7 +9,7 @@ import math
 hub = MSHub()
 # Write your program here.
 hub.speaker.beep()
-# capteur de couleur de gauche 
+# capteur de couleur de gauche
 color = ColorSensor('D')
 # la variable des moteurs du robot
 brain_bot = MotorPair('B', 'C')
@@ -60,21 +60,26 @@ def move_until_curve(robot,motor_sensor_degrees, distance_degrees,speed_motor_le
         print("ERREUR: LA VARIABLE DE LA DISTANCE NE DOIT PAS ETRE NEGATIVE(VOIR FONCTION move_until())")
 
 
-def follow_line(color, distance):
+def follow_line(color, distance,is_right = False, speed = 50):
     integral = 0
     lastError = 0
+    k_fix = 0.5
+    if is_right:
+        k_fix = -0.5
+    else:
+        k_fix = 0.5
     left_motor.set_degrees_counted(0)
 
     while abs(left_motor.get_degrees_counted()) < distance:
         error = color.get_reflected_light() - 70
-        P_fix = error * 0.5
+        P_fix = error * k_fix
         integral = integral + error # or integral+=error
         I_fix = integral * 0
         derivative = error - lastError
         lastError = error
         D_fix = derivative * 0
         correction = P_fix + I_fix + D_fix
-        brain_bot.start_tank_at_power(int(50+correction), 50)
+        brain_bot.start_tank_at_power(int(speed+correction), speed)
     brain_bot.stop()
 
 
@@ -165,17 +170,20 @@ def eolienne():
     # retour ne marche pas
     left_motor.run_for_degrees(-450, 30)
     brain_bot.move(1250,'degrees',0,50)
-    
+
+SPEED = 30
 def hand():
     brain_bot.move_tank(1750,'degrees', SPEED, SPEED)
     #120
     left_motor.run_for_degrees(-450, 35)
     brain_bot.move_tank(-350,'degrees', SPEED, SPEED)
-    follow_line(color,450,30)
+    follow_line(color,450)
     brain_bot.move_tank(850,'degrees', 98, 100)
     #retour
     brain_bot.move_tank(-1200,'degrees', 100, 100)
     right_motor.run_for_degrees(500, 35)
     brain_bot.move_tank(2000,'degrees', 100, 100)
 
-follow_line(color, 10000, 30)
+#follow_line(color, 10000, 30)
+#hand()
+
