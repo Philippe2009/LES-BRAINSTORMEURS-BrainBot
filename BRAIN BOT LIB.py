@@ -185,13 +185,20 @@ def hand():
     brain_bot.move_tank(2000,'degrees', 100, 100)
 
 #mission pétrolier
-def petrole():
+def oil_station():
     
-    brain_bot.move_tank(55, 'cm', 40, 40)
+    brain_bot.move_tank(45, 'cm', 30, 30)
     for i in range(4):
         brain_bot.move_tank(5, 'cm', 30, 30)
         wait_for_seconds(0.5)
         brain_bot.move_tank(-5, 'cm', 30, 30)
-    brain_bot.move_tank(-55, 'cm', 100, 100)
+    brain_bot.move_tank(180, 'degrees', 30,0)
+    brain_bot.move(5, 'cm')
+    brain_bot.move_tank(-90, 'degrees', 0,30)
+    brain_bot.move(-1000, 'degrees',0, 100)
+    brain_bot.move(10, 'cm')
+    brain_bot.move_tank(180, 'degrees', 0,100)
+    brain_bot.move(-1250, 'degrees',0, 100)
 
-petrole()
+oil_station()
+
