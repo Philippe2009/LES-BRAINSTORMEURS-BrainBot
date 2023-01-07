@@ -184,6 +184,14 @@ def hand():
     right_motor.run_for_degrees(500, 35)
     brain_bot.move_tank(2000,'degrees', 100, 100)
 
-#follow_line(color, 10000, 30)
-#hand()
+#mission pétrolier
+def petrole():
+    
+    brain_bot.move_tank(55, 'cm', 40, 40)
+    for i in range(4):
+        brain_bot.move_tank(5, 'cm', 30, 30)
+        wait_for_seconds(0.5)
+        brain_bot.move_tank(-5, 'cm', 30, 30)
+    brain_bot.move_tank(-55, 'cm', 100, 100)
 
+petrole()
