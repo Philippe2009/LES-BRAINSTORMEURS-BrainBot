@@ -84,14 +84,11 @@ def follow_line(color, distance,is_right = False, speed = 50):
 
 
 # la mission "television"
+
 def mission_television():
-    move_until_straight(brain_bot,right_motor, 830, 50)
-    move_until_straight(brain_bot,right_motor, 50, -10)
-    move_until_straight(brain_bot,right_motor, 50, -30)
-    move_until_straight(brain_bot,right_motor, 100, -50)
-    move_until_straight(brain_bot,right_motor, 100, -40)
-    move_until_straight(brain_bot,right_motor, 100, -30)
-    brain_bot.stop()
+    move_until_straight(brain_bot,right_motor, 1000, 50)
+    wait_for_seconds(1)
+    move_until_straight(brain_bot,right_motor, 800, -100)
 
 """
 top_module.run_to_position(85,"shortest path", 75)
