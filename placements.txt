@@ -1,7 +1,7 @@
 Gauche et droite = en direction de la main.
 
 Télévision:
-Zone bleue, un petit carreau à partir du mur de droite
+Zone bleue, un petit carreau à partir du mur de droite. le robot regarde vers la télévision(vers le nord)
 Main:
 Zone bleue, 09 carreaux vers le haut à partir du coin en bas à droite de la zone rouge le robot regarde vers la zone rouge.
 =
