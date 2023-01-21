@@ -3,9 +3,9 @@ Gauche et droite = en direction de la main.
 Télévision:
 Zone bleue, un petit carreau à partir du mur de droite. le robot regarde vers la télévision(vers le nord)
 Main:
-Zone bleue, 09 carreaux vers le haut à partir du coin en bas à droite de la zone rouge le robot regarde vers la zone rouge.
+Zone bleue, 07 carreaux vers le haut à partir du coin en bas à droite de la zone rouge le robot regarde vers la zone rouge.
 =
-2 grands carreaux(=4petits) + 1 petit carreau
+2 grands carreaux(=4petits) -1 petit carreau
 station pétrolière:
 Zone rouge, la Cale orange et grise est placée 9 carreaux à partir du coin en bas à gauche, c'est à dire 2 grands carreaux  et un petit carreau(vers la gauche)
 Eolienne:
