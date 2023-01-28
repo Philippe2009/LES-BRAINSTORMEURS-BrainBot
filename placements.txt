@@ -9,4 +9,4 @@ Zone bleue, 07 carreaux vers le haut à partir du coin en bas à droite de la zo
 station pétrolière:
 Zone rouge, la Cale orange et grise est placée 9 carreaux à partir du coin en bas à gauche, c'est à dire 2 grands carreaux  et un petit carreau(vers la gauche)
 Eolienne:
-Zone bleue, 6 carreaux à partrir du coin en bas à gauche.(vers la gauche)
+Zone bleue, 4 carreaux à partrir du coin en bas à droite.(vers la gauche)
