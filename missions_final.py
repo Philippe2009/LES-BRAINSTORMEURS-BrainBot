@@ -1,3 +1,5 @@
+
+
 from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
 from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
@@ -117,7 +119,7 @@ def eolienne():
     brain_bot.stop()
     '''
     # retour ne marche pas
-    
+
     brain_bot.move(1250,'degrees',0,50)
     '''
 
@@ -142,7 +144,7 @@ def oil_station():
 def mission_television():
     move_until_straight(brain_bot,right_motor, 1000, 50)
     wait_for_seconds(1)
-    move_until_straight(brain_bot,right_motor, 800, -100)
+    move_until_straight(brain_bot,right_motor, 650, -100)
     brain_bot.stop()
 #press_counter = 0
 #missions = [
@@ -167,13 +169,13 @@ while press_counter != 4:
     print('press')
     """
     if hub.left_button.is_pressed():
-        
+
     # Faire quelque chose.
         hub.speaker.beep()
         print(missions[press_counter])
         mission_to_execute = missions[press_counter]
         mission_to_execute()
-        
+
         if press_counter == 0:
             print(0)
         elif press_counter == 1:
@@ -184,9 +186,10 @@ while press_counter != 4:
             pass
 '''
 
+mission_counter = 0
 
 def execute_mission_by_index(index):
-    mission_counter = 0
+
     if index == 0:
         #television
         print('television')
@@ -201,12 +204,25 @@ def execute_mission_by_index(index):
     elif index == 3:
         print('station_pétrolière')
         oil_station()
-def missions_selector():
-    while mission_counter != 3:
-        hub.left_button.wait_until_pressed()
+
+while mission_counter != 3:
+    hub.light_matrix.write(str(mission_counter))
+    if hub.left_button.is_pressed():
+        hub.light_matrix.write(str(mission_counter))
         hub.speaker.beep()
         execute_mission_by_index(mission_counter)
         mission_counter += 1
+    if hub.right_button.is_pressed():
+        hub.light_matrix.write(str(mission_counter))
+        mission_counter -= 1
+        hub.speaker.beep()
+        execute_mission_by_index(mission_counter)
+        mission_counter += 1
+    '''
+    hub.left_button.wait_until_pressed()
+    hub.speaker.beep()
+    execute_mission_by_index(mission_counter)
+    mission_counter += 1
+    '''
 
-missions_selector()
 #eolienne()
