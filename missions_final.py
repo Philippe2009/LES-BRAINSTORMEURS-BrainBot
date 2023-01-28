@@ -95,6 +95,47 @@ def hand():
     brain_bot.move_tank(-1200,'degrees', 100, 100)
     right_motor.run_for_degrees(500, 35)
     brain_bot.move_tank(2000,'degrees', 100, 100)
+    brain_bot.stop()
+
+# l'eolienne
+def eolienne():
+    brain_bot.move(400,'degrees',0,50)
+    right_motor.run_for_degrees(125, 30)
+    brain_bot.move(850,'degrees',0,50)
+    left_motor.run_for_degrees(-350, 30)
+    # essayer 4
+    for i in range(3):
+        brain_bot.move(700,'degrees',0,75)
+        wait_for_seconds(0.75)
+        brain_bot.move(-300,'degrees',0,25)
+    # essayer avec 500
+    brain_bot.move(400,'degrees',0,75)
+    wait_for_seconds(0.75)
+    brain_bot.move(-300,'degrees',0,100)
+    left_motor.run_for_degrees(600, 75)
+    brain_bot.move(-2000,'degrees',0,100)
+    brain_bot.stop()
+    '''
+    # retour ne marche pas
+    
+    brain_bot.move(1250,'degrees',0,50)
+    '''
+
+#mission pétrolier
+def oil_station():
+
+    brain_bot.move_tank(45, 'cm', 30, 30)
+    for i in range(4):
+        brain_bot.move_tank(5, 'cm', 30, 30)
+        wait_for_seconds(0.5)
+        brain_bot.move_tank(-5, 'cm', 30, 30)
+    brain_bot.move_tank(180, 'degrees', 30,0)
+    brain_bot.move(5, 'cm')
+    brain_bot.move_tank(-90, 'degrees', 0,30)
+    brain_bot.move(-1000, 'degrees',0, 100)
+    brain_bot.move(10, 'cm')
+    brain_bot.move_tank(180, 'degrees', 0,100)
+    brain_bot.move(-1250, 'degrees',0, 100)
 
 # la mission "television"
 
@@ -102,3 +143,70 @@ def mission_television():
     move_until_straight(brain_bot,right_motor, 1000, 50)
     wait_for_seconds(1)
     move_until_straight(brain_bot,right_motor, 800, -100)
+    brain_bot.stop()
+#press_counter = 0
+#missions = [
+#mission_television()
+#eolienne()
+
+# oil_station
+#]
+#hub.write('0')
+
+#eolienne()
+
+
+'''
+
+while press_counter != 4:
+    """
+    hub.left_button.wait_until_pressed()
+    missions[press_counter]
+    press_counter += 1
+    hub.left_button.wait_until_released()
+    print('press')
+    """
+    if hub.left_button.is_pressed():
+        
+    # Faire quelque chose.
+        hub.speaker.beep()
+        print(missions[press_counter])
+        mission_to_execute = missions[press_counter]
+        mission_to_execute()
+        
+        if press_counter == 0:
+            print(0)
+        elif press_counter == 1:
+            pass
+        elif press_counter == 2:
+            pass
+        elif press_counter == 3:
+            pass
+'''
+
+
+def execute_mission_by_index(index):
+    mission_counter = 0
+    if index == 0:
+        #television
+        print('television')
+        mission_television()
+    elif index == 1:
+        # eolienne
+        print('eolienne')
+        eolienne()
+    elif index == 2:
+        print('main')
+        hand()
+    elif index == 3:
+        print('station_pétrolière')
+        oil_station()
+def missions_selector():
+    while mission_counter != 3:
+        hub.left_button.wait_until_pressed()
+        hub.speaker.beep()
+        execute_mission_by_index(mission_counter)
+        mission_counter += 1
+
+missions_selector()
+#eolienne()
