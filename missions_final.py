@@ -1,5 +1,4 @@
 
-
 from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
 from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
@@ -185,7 +184,7 @@ while press_counter != 4:
         elif press_counter == 3:
             pass
 '''
-
+'''
 mission_counter = 0
 
 def execute_mission_by_index(index):
@@ -218,11 +217,13 @@ while mission_counter != 3:
         hub.speaker.beep()
         execute_mission_by_index(mission_counter)
         mission_counter += 1
-    '''
+'''
+'''
     hub.left_button.wait_until_pressed()
     hub.speaker.beep()
     execute_mission_by_index(mission_counter)
     mission_counter += 1
-    '''
+'''
 
-#eolienne()
+
+#oil_station()
