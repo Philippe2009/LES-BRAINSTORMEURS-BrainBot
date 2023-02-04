@@ -1,3 +1,4 @@
+
 from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
 from mindstorms.control import wait_for_seconds, wait_until, Timer
 from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
@@ -82,94 +83,9 @@ def follow_line(color, distance,is_right = False, speed = 50):
         brain_bot.start_tank_at_power(int(speed+correction), speed)
     brain_bot.stop()
 
-
-# la mission "television"
-
-def mission_television():
-    move_until_straight(brain_bot,right_motor, 1000, 50)
-    wait_for_seconds(1)
-    move_until_straight(brain_bot,right_motor, 800, -100)
-
-"""
-top_module.run_to_position(85,"shortest path", 75)
-top_module.run_to_position(200, 'clockwise', 75)
-"""
-# la misision de la main
-def mission_hand():
-    brain_bot.move_tank(1500, 'degrees', 55, 75)
-    brain_bot.move_tank(650, 'degrees', 75, 55)
-    brain_bot.stop()
-    top_module_motor.run_for_degrees(120, 30)
-
-# la première run: mission_television + mission_hand.
-
-def first_run():
-    top_module_motor.run_for_degrees(60, 30)
-    mission_television()
-    mission_hand()
-#first_run()
-#first_run()
-
-"""
-# problèmes:
-#main pas fiable
-#fonctions marchents en s'arretant
-"""
-
-#mission_television()
-"""
-Main: NE MARCHE PAS
-"""
-
-#motor_pair.move_tank(90, 'degrees', -90, -90)
-
-#move_until_straight(brain_bot,right_motor, 1550, 30)
-
-#move_until_curve(brain_bot,right_motor,265 ,16,5)
-#move_until_straight(brain_bot,right_motor, 600, 30)
-
-#move_until_straight(top_module_motor, 400, 30)
-#while right_color_sensor.get_reflected_light() <= 70:
- #brain_bot.start_tank(30,30)
-#while left_color_sensor.get_reflected_light() >= 45 and right_color_sensor.get_reflected_light() >= 45:
- #brain_bot.start_tank(50,50)
-
-#brain_bot.stop()
-#print("ligne noire")
-#move_until_curve(brain_bot,right_motor,1910 ,66,55)
-#brain_bot.stop()
-
-'''
-brain_bot.move(72,'cm',0,50)
-left_motor.run_for_degrees(-250, 50)
-for i in range(4):
-    brain_bot.move(-10,'cm',0,100)
-    wait_for_seconds(1)
-    brain_bot.move(20,'cm',0,100)
-left_motor.run_for_degrees(250, 100)
-brain_bot.move(-72,'cm',0,100)
-'''
-# l'eolienne
-def eolienne():
-    brain_bot.move(350,'degrees',0,50)
-    right_motor.run_for_degrees(125, 30)
-    brain_bot.move(900,'degrees',0,50)
-    left_motor.run_for_degrees(-350, 30)
-    # essayer 4
-    for i in range(3):
-        brain_bot.move(375,'degrees',0,100)
-        wait_for_seconds(0.75)
-        brain_bot.move(-300,'degrees',0,25)
-    # essayer avec 500
-    brain_bot.move(400,'degrees',0,75)
-    wait_for_seconds(0.75)
-    brain_bot.move(-300,'degrees',0,25)
-    # retour ne marche pas
-    left_motor.run_for_degrees(-450, 30)
-    brain_bot.move(1250,'degrees',0,50)
-
 SPEED = 30
 def hand():
+    #20 pts
     brain_bot.move_tank(1750,'degrees', SPEED, SPEED)
     #120
     left_motor.run_for_degrees(-450, 35)
@@ -180,10 +96,35 @@ def hand():
     brain_bot.move_tank(-1200,'degrees', 100, 100)
     right_motor.run_for_degrees(500, 35)
     brain_bot.move_tank(2000,'degrees', 100, 100)
+    brain_bot.stop()
+
+# l'eolienne
+def eolienne():
+    brain_bot.move(400,'degrees',0,50)
+    right_motor.run_for_degrees(125, 30)
+    brain_bot.move(850,'degrees',0,50)
+    left_motor.run_for_degrees(-350, 30)
+    # essayer 4
+    for i in range(3):
+        brain_bot.move(700,'degrees',0,75)
+        wait_for_seconds(0.75)
+        brain_bot.move(-300,'degrees',0,25)
+    # essayer avec 500
+    brain_bot.move(400,'degrees',0,75)
+    wait_for_seconds(0.75)
+    brain_bot.move(-300,'degrees',0,100)
+    left_motor.run_for_degrees(600, 75)
+    brain_bot.move(-2000,'degrees',0,100)
+    brain_bot.stop()
+    '''
+    # retour ne marche pas
+
+    brain_bot.move(1250,'degrees',0,50)
+    '''
 
 #mission pétrolier
 def oil_station():
-    
+
     brain_bot.move_tank(45, 'cm', 30, 30)
     for i in range(4):
         brain_bot.move_tank(5, 'cm', 30, 30)
@@ -197,5 +138,130 @@ def oil_station():
     brain_bot.move_tank(180, 'degrees', 0,100)
     brain_bot.move(-1250, 'degrees',0, 100)
 
-oil_station()
+# la mission "television"
 
+def mission_television():
+    move_until_straight(brain_bot,right_motor, 1000, 50)
+    wait_for_seconds(1)
+    move_until_straight(brain_bot,right_motor, 650, -100)
+    brain_bot.stop()
+#press_counter = 0
+#missions = [
+#mission_television()
+#eolienne()
+
+# oil_station
+#]
+#hub.write('0')
+
+#eolienne()
+def execute_mission(mission_index):
+    if mission_index == 1:
+        eolienne()
+    elif mission_index == 2:
+        mission_television()
+    elif mission_index == 3:
+        hand()
+    elif mission_index == 4:
+        oil_station()
+    else:
+        print('ERROR: in def execute_mission(mission_index) non-valid index')
+
+
+mission_index = 0
+
+while mission_index <= 3:
+    #print(mission_index)
+    hub.light_matrix.write(str(mission_index))
+    if hub.left_button.is_pressed():
+        if mission_index == 0:
+            execute_mission(1)
+            mission_index += 1
+        else:
+            hub.speaker.beep()
+            mission_index += 1
+            print(mission_index)
+            hub.light_matrix.write(str(mission_index))
+            execute_mission(mission_index)
+
+    if hub.right_button.is_pressed():
+        if mission_index-1== 0:
+            hub.speaker.beep()
+            execute_mission(1)
+        else:
+            hub.speaker.beep()
+            mission_index -= 1
+            print(mission_index)
+            hub.light_matrix.write(str(mission_index))
+            execute_mission(mission_index)
+
+'''
+
+while press_counter != 4:
+    """
+    hub.left_button.wait_until_pressed()
+    missions[press_counter]
+    press_counter += 1
+    hub.left_button.wait_until_released()
+    print('press')
+    """
+    if hub.left_button.is_pressed():
+
+    # Faire quelque chose.
+        hub.speaker.beep()
+        print(missions[press_counter])
+        mission_to_execute = missions[press_counter]
+        mission_to_execute()
+
+        if press_counter == 0:
+            print(0)
+        elif press_counter == 1:
+            pass
+        elif press_counter == 2:
+            pass
+        elif press_counter == 3:
+            pass
+'''
+'''
+mission_counter = 0
+
+def execute_mission_by_index(index):
+
+    if index == 0:
+        #television
+        print('television')
+        mission_television()
+    elif index == 1:
+        # eolienne
+        print('eolienne')
+        eolienne()
+    elif index == 2:
+        print('main')
+        hand()
+    elif index == 3:
+        print('station_pétrolière')
+        oil_station()
+
+while mission_counter != 3:
+    hub.light_matrix.write(str(mission_counter))
+    if hub.left_button.is_pressed():
+        hub.light_matrix.write(str(mission_counter))
+        hub.speaker.beep()
+        execute_mission_by_index(mission_counter)
+        mission_counter += 1
+    if hub.right_button.is_pressed():
+        hub.light_matrix.write(str(mission_counter))
+        mission_counter -= 1
+        hub.speaker.beep()
+        execute_mission_by_index(mission_counter)
+        mission_counter += 1
+'''
+'''
+    hub.left_button.wait_until_pressed()
+    hub.speaker.beep()
+    execute_mission_by_index(mission_counter)
+    mission_counter += 1
+'''
+
+
+#oil_station()
